@@ -7,11 +7,12 @@ using System.Web;
 
 namespace Memberships.Entities
 {
-    [Table("Section")]
-    public class Section
+    [Table("ItemType")]
+    public class ItemType
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+
         [MaxLength(255)]
         [Required]
         public string Title { get; set; }
