@@ -44,7 +44,7 @@ namespace Memberships.Models
         public DbSet<Subscription> Subscriptions { get; set; }
         public DbSet<SubscriptionProduct> SubscriptionProducts { get; set; }
         public DbSet<UserSubscription> UserSubscriptions { get; set; }
-
+        public DbSet<ProductType> ProductTypes { get; set; }
 
 
 
