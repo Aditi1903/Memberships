@@ -199,7 +199,7 @@
     <Compile Include="Areas\Admin\Controllers\ItemTypeController.cs" />
     <Compile Include="Areas\Admin\Controllers\PartController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductLinkTextController.cs" />
-    <Compile Include="Areas\Admin\Controllers\ProductTypesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProductTypeController.cs" />
     <Compile Include="Areas\Admin\Controllers\SectionController.cs" />
     <Compile Include="Areas\Admin\Models\SmallButtonModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -216,6 +216,8 @@
     <Compile Include="Entities\Subscription.cs" />
     <Compile Include="Entities\SubscriptionProduct.cs" />
     <Compile Include="Entities\UserSubscription.cs" />
+    <Compile Include="Extensions\ICollectionExtensions.cs" />
+    <Compile Include="Extensions\ReflectionExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -268,11 +270,11 @@
     <Content Include="Areas\Admin\Views\ItemType\Details.cshtml" />
     <Content Include="Areas\Admin\Views\ItemType\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\ItemType\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\ProductTypes\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\ProductTypes\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\ProductTypes\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\ProductTypes\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\ProductTypes\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductType\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductType\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductType\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductType\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductType\Index.cshtml" />
     <Content Include="Areas\Admin\Views\ProductLinkText\Create.cshtml" />
     <Content Include="Areas\Admin\Views\ProductLinkText\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\ProductLinkText\Details.cshtml" />
