@@ -19,7 +19,7 @@ namespace Memberships.Areas.Admin.Controllers
         // GET: Admin/ItemType
         public async Task<ActionResult> Index()
         {
-            return View(await db.ItemTypes.ToListAsync());
+            return View(await db.Items.ToListAsync());
         }
 
         // GET: Admin/ItemType/Details/5
