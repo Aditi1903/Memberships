@@ -19,7 +19,7 @@ namespace Memberships.Areas.Admin.Controllers
         // GET: Admin/Item
         public async Task<ActionResult> Index()
         {
-            return View(await db.Products.ToListAsync());
+            return View(await db.Items.ToListAsync());
         }
 
         // GET: Admin/Item/Details/5

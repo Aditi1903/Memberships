@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using Memberships.Entities;
 using Memberships.Models;
 using Memberships.Areas.Admin.Models;
+using Memberships.Areas.Admin.Extensions;
 
 namespace Memberships.Areas.Admin.Controllers
 {
@@ -20,7 +21,7 @@ namespace Memberships.Areas.Admin.Controllers
         // GET: Admin/ProductItem
         public async Task<ActionResult> Index()
         {
-            return View(await db.ProductItems.ToListAsync());
+            return View(await db.ProductItems.Convert(db));
         }
 
         // GET: Admin/ProductItem/Details/5
@@ -68,18 +69,18 @@ namespace Memberships.Areas.Admin.Controllers
         }
 
         // GET: Admin/ProductItem/Edit/5
-        public async Task<ActionResult> Edit(int? id)
+        public async Task<ActionResult> Edit(int? itemId, int? productId)
         {
-            if (id == null)
+            if (itemId == null || productId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ProductItem productItem = await db.ProductItems.FindAsync(id);
+            ProductItem productItem = await GetProductItem(itemId, productId);
             if (productItem == null)
             {
                 return HttpNotFound();
             }
-            return View(productItem);
+            return View(await productItem.Convert(db));
         }
 
         // POST: Admin/ProductItem/Edit/5
@@ -95,7 +96,7 @@ namespace Memberships.Areas.Admin.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            return View(productItem);
+            return View(productItem.Convert(db));
         }
 
         // GET: Admin/ProductItem/Delete/5
@@ -122,6 +123,20 @@ namespace Memberships.Areas.Admin.Controllers
             db.ProductItems.Remove(productItem);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
+        }
+        private async Task<ProductItem>GetProductItem(
+            int? itemId, int? productId)
+        {
+            try
+            {
+                int itmId = 0, prdId = 0;
+                int.TryParse(itemId.ToString(), out itmId);
+                int.TryParse(productId.ToString(), out prdId);
+                var productItem = await db.ProductItems.FirstOrDefaultAsync(
+                    pi => pi.ProductId.Equals(prdId) && pi.ItemId.Equals(itemId));
+                return productItem;
+            }
+            catch { return null; }
         }
 
         protected override void Dispose(bool disposing)
