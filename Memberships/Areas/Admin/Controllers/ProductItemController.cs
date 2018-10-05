@@ -88,12 +88,14 @@ namespace Memberships.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ProductId,ItemId")] ProductItem productItem)
+        public async Task<ActionResult> Edit(
+            [Bind(Include = "ProductId,ItemId,OldProductId,OldItemId")] ProductItem productItem)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(productItem).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                var canChange = await productItem.CanChange(db);
+                if (canChange)
+                    await productItem.Change(db);
                 return RedirectToAction("Index");
             }
             return View(productItem.Convert(db));
@@ -124,7 +126,7 @@ namespace Memberships.Areas.Admin.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
-        private async Task<ProductItem>GetProductItem(
+        private async Task<ProductItem> GetProductItem(
             int? itemId, int? productId)
         {
             try
@@ -133,7 +135,7 @@ namespace Memberships.Areas.Admin.Controllers
                 int.TryParse(itemId.ToString(), out itmId);
                 int.TryParse(productId.ToString(), out prdId);
                 var productItem = await db.ProductItems.FirstOrDefaultAsync(
-                    pi => pi.ProductId.Equals(prdId) && pi.ItemId.Equals(itemId));
+                    pi => pi.ProductId.Equals(prdId) && pi.ItemId.Equals(itmId));
                 return productItem;
             }
             catch { return null; }
